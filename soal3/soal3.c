@@ -10,12 +10,43 @@
 #include <string.h>
 #include <time.h>
 
+void caesar(char message[])
+{
+  int key = 5;
+  char ch;
+	int i;
+
+  for(i = 0; message[i] != '\0'; ++i){
+		ch = message[i];
+		
+		if(ch >= 'a' && ch <= 'z'){
+			ch = ch + key;
+			
+			if(ch > 'z'){
+				ch = ch - 'z' + 'a' - 1;
+			}
+			
+			message[i] = ch;
+		}
+		else if(ch >= 'A' && ch <= 'Z'){
+			ch = ch + key;
+			
+			if(ch > 'Z'){
+				ch = ch - 'Z' + 'A' - 1;
+			}
+			
+			message[i] = ch;
+		}
+	}
+}
+
 void downloadgambar(char nama[])
 {
     pid_t child_id2, child_id3;
     int status,i;
     child_id2 = fork();
     chdir(nama);
+    FILE *fp;
 
     if(child_id2 == 0){
 
@@ -38,14 +69,22 @@ void downloadgambar(char nama[])
           execv("/bin/wget", argv);
         }
 
-        
         sleep(5);
       }
 
-      
-    }
-  
+      char statusmsg[30] = "Download Success";
+        caesar(statusmsg);
+        fp = fopen("status.txt", "w");
+        fprintf(fp, statusmsg);
+        fclose(fp);
+
     chdir("..");
+
+    char *zipargv[] = {"zip", "-rm", nama,nama, NULL};
+    execv("/bin/zip", zipargv);
+
+    }
+        
 }
 
 void buatfolder(char nama[])
@@ -68,7 +107,7 @@ void buatfolder(char nama[])
 int main() {
 
    pid_t pid, sid;        // Variabel untuk menyimpan PID
-   int status;
+   int status1,status2;
   pid = fork();     // Menyimpan PID dari Child Process
 
   /* Keluar saat fork gagal
@@ -98,9 +137,9 @@ int main() {
     {
         char nama[60];
         buatfolder(nama);
-        while(wait(&status)>0);
+        while(wait(&status1)>0);
         downloadgambar(nama);
-        while(wait(&status)>0);
+        while(wait(&status2)>0);
         
         
         sleep(40);
