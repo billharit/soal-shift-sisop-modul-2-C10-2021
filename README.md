@@ -10,7 +10,7 @@
 
 
 ### Soal 1
-
+> **[soal1.c](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/soal1.c)**
 
 
 ### Soal 2
