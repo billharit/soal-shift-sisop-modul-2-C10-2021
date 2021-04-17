@@ -16,7 +16,7 @@ void Killer()
   FILE* kill;
   kill = fopen("Killer.sh", "w");
   // fprintf(kill, "#!/bin/bash\nkill %d\nrm \"$0\"",getpid());
-  fprintf(kill, "#!/bin/bash\nif [ $1 -eq \"-x\" ]\nthen\n\tkill %d\n \trm \"$0\"\nelse\n\tkillall -9 soal3\n\trm \"$0\"\nfi",getpid()); 
+  fprintf(kill, "#!/bin/bash\nif [ \"$1\" = \"-x\" ]\nthen\n\tkill %d\n \trm \"$0\"\nelse\n\tkillall -9 soal3\n\trm \"$0\"\nfi",getpid()); 
   fclose(kill);
   child_id4 = fork();
   if(child_id4 == 0 )
