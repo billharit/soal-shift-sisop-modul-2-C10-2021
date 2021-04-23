@@ -12,18 +12,18 @@
 
 void Killer()
 {
-  pid_t child_id4;
+  // pid_t child_id4;
   FILE* kill;
   kill = fopen("Killer.sh", "w");
   // fprintf(kill, "#!/bin/bash\nkill %d\nrm \"$0\"",getpid());
   fprintf(kill, "#!/bin/bash\nif [ \"$1\" = \"-x\" ]\nthen\n\tkill %d\n \trm \"$0\"\nelse\n\tkillall -9 soal3\n\trm \"$0\"\nfi",getpid()); 
   fclose(kill);
-  child_id4 = fork();
-  if(child_id4 == 0 )
-  {
-    char *arg[]={"chmod","u+x","Killer.sh",NULL};
-    execv("/bin/chmod", arg);
-  }
+  // child_id4 = fork();
+  // if(child_id4 == 0 )
+  // {
+  //   char *arg[]={"chmod","u+x","Killer.sh",NULL};
+  //   execv("/bin/chmod", arg);
+  // }
 
 }
 
@@ -61,10 +61,12 @@ void downloadgambar(char nama[])
 {
     pid_t child_id2, child_id3;
     int status,i;
+    // chdir(nama);
     child_id2 = fork();
-    chdir(nama);
     FILE *fp;
-
+    if(child_id2 < 0){
+      exit(EXIT_FAILURE);
+    }  
     if(child_id2 == 0){
 
       
@@ -77,26 +79,35 @@ void downloadgambar(char nama[])
       time (&now);
       timeinfo = localtime (&now);
       strftime(buffer,100,"%Y-%m-%d_%H:%M:%S", timeinfo);
-      sprintf(namafile,"%s.jpg", buffer);
+      sprintf(namafile,"./%s/%s.jpg",nama, buffer);
       char link[50];
+      // char folder[100];
+      // sprintf(folder,"/%s", buffer);
       sprintf(link,"https://picsum.photos/%ld", (now%1000) + 50);
+      // printf("%s\n%s", namafile, folder);
         child_id3 = fork();
+        if(child_id3 < 0){
+          exit(EXIT_FAILURE);
+          }  
         if(child_id3 == 0) {
           char *argv[] = {"wget", "-qO", namafile,link, NULL};
+          // char *argv[] = {"wget", "-qO", namafile,link,"&&", "mv", namafile, folder, NULL};
           execv("/bin/wget", argv);
         }
-
         sleep(5);
       }
-
+    
+    chdir(nama);
       char statusmsg[30] = "Download Success";
+      // char statusfile;
+      // sprintf(statusfile,"status.txt",nama);
+      // sprintf(statusfile,"./%s/status.txt",nama);
         caesar(statusmsg);
         fp = fopen("status.txt", "w");
         fprintf(fp, statusmsg);
         fclose(fp);
-
     chdir("..");
-
+    
     char *zipargv[] = {"zip", "-rm", nama,nama, NULL};
     execv("/bin/zip", zipargv);
 
@@ -106,6 +117,7 @@ void downloadgambar(char nama[])
 
 void buatfolder(char nama[])
 {
+    int status1;
     time_t now;
     struct tm* timeinfo;
     time (&now);
@@ -119,6 +131,7 @@ void buatfolder(char nama[])
         char *argv[] = {"mkdir", "-p", nama, NULL};
         execv("/bin/mkdir", argv);
     }
+    while(wait(&status1)>0);
 }
 
 int main() {
@@ -156,9 +169,9 @@ int main() {
     {
         char nama[60];
         buatfolder(nama);
-        while(wait(&status1)>0);
+        
         downloadgambar(nama);
-        while(wait(&status2)>0);
+        
         
         
         sleep(40);
