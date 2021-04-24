@@ -15,7 +15,6 @@ int main()
     if (child1 == 0) {
         // sleep the process for 1 second
         sleep(1);
-        printf("2nd CHILD\n");
 
         DIR *isi_petshop;
         struct dirent *isi;
