@@ -41,7 +41,7 @@ int main() {
 
  while(1){
  
-  time_t now;
+  time_t now = time(NULL);
   struct tm *local = localtime(&now);
  
   hour = local->tm_hour;
