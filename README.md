@@ -12,6 +12,124 @@
 ### Soal 1
 > **[soal1.c](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/soal1.c)**
 
+a. 
+
+```
+child2 = fork();
+
+    if(child2 == 0){
+     char *ex[] = {"mkdir", "modul2/Musyik", NULL};
+     execv("/bin/mkdir", ex);
+    }
+```
+
+```
+if(child2 == 0){
+     char *ex[] = {"mkdir", "modul2/Fylm", NULL};
+     execv("/bin/mkdir", ex);
+    }
+```
+
+```
+if(child2 == 0){
+     char *ex[] = {"mkdir", "modul2/Pyoto", NULL};
+     execv("/bin/mkdir", ex);
+    }
+```
+
+b. 
+
+
+```
+    child3 = fork();
+     if(child3 == 0){
+      sprintf(url, "https://drive.google.com/uc?id=1ZG8nRBRPquhYXq_sISdsVcXx5VdEgi-J&export=download");
+      sprintf(file, "modul2/Musik_for_Stevany.zip");
+      char *ar[] = {"wget", "--no-check-certificate", url, "-O", file, NULL};
+      execv("/usr/bin/wget", ar);
+     }
+```
+
+```
+    if(child3 == 0){
+      sprintf(url, "https://drive.google.com/uc?id=1ktjGgDkL0nNpY-vT7rT7O6ZI47Ke9xcp&export=download");
+      sprintf(file, "modul2/Film_for_Stevany.zip");
+      char *ar[] = {"wget", "--no-check-certificate", url, "-O", file, NULL};
+      execv("/usr/bin/wget", ar);
+     }
+```
+
+```
+    if(child3 == 0){
+      sprintf(url, "https://drive.google.com/uc?id=1FsrAzb9B5ixooGUs0dGiBr-rC7TS9wTD&export=download");
+      sprintf(file, "modul2/Foto_for_Stevany.zip");
+      char *ar[] = {"wget", "--no-check-certificate", url, "-O", file, NULL};
+      execv("/usr/bin/wget", ar);
+     }
+```
+
+c.
+
+```
+       chdir("modul2");
+       char *zip[] = {"unzip", "-q", "Musik_for_Stevany.zip", NULL};
+       execv("/usr/bin/unzip", zip);
+```
+
+```
+       chdir("modul2");
+       char *zip[] = {"unzip", "-q", "Film_for_Stevany.zip", NULL};
+       execv("/usr/bin/unzip", zip);
+```
+
+```
+       chdir("modul2");
+       char *zip[] = {"unzip", "-q", "Foto_for_Stevany.zip", NULL};
+       execv("/usr/bin/unzip", zip);
+```
+
+d.
+
+```
+child5 = fork();
+if(child5 == 0){
+        char *move[] = {"find", "modul2/MUSIK", "-mindepth", "1", 
+       "-type", "f", "-exec", "/bin/mv", "-t", "modul2/Musyik", "{}", ";", (char *)NULL};
+        execv("/usr/bin/find", move);
+       }
+```
+
+```
+ child5 = fork();
+ if(child5 == 0){
+        char *move[] = {"find", "modul2/FILM", "-mindepth", "1", 
+                "-type", "f", "-exec", "/bin/mv", "-t", "modul2/Fylm", "{}", ";", (char *)NULL};
+        execv("/usr/bin/find", move);
+       }
+```
+
+```
+child5 = fork();
+       if(child5 == 0){
+        char *move[] = {"find", "modul2/FOTO", "-mindepth", "1", 
+                 "-type", "f", "-exec", "/bin/mv", "-t", "modul2/Pyoto", "{}",  ";", (char *)NULL};
+        execv("/usr/bin/find", move);
+```
+
+e.
+
+```
+char *del[] = {"rm", "-rf", "modul2/MUSIK", "modul2/FOTO", "modul2/FILM", NULL};
+     execv("/bin/rm", del);
+```
+
+f.
+
+```
+ chdir("modul2");
+     char *zip[] = {"zip", "-r", "-m", "Lopyu_Stevany.zip", "Musyik", "Fylm", "Pyoto", NULL};
+     execv("/usr/bin/zip", zip);  
+```
 
 ### Soal 2
 > **[soal2.c](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal2/soal2.c)**
