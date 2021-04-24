@@ -19,7 +19,7 @@
 Pada soal 2, diminta untuk membantu pengolahan data dalam suatu file .zip. Adapun keperluan sebagai berikut 
     
     A.  Diminta untuk unzip file 'pets.zip' kedalam folder "/home/[user]/modul2/petshop", lalu menghapus folder-folder yang tidak dibutuhkan.
-          Untuk melakukan ekstrak file zip, dilakukan perintah :
+Untuk melakukan ekstrak file zip, dilakukan perintah :
           
 ```c
   //EKSTRAK File .zip
@@ -27,8 +27,7 @@ Pada soal 2, diminta untuk membantu pengolahan data dalam suatu file .zip. Adapu
   char *argv[]= {"unzip", "pets.zip", "-d", "/home/dicksen/modul2/petshop", NULL};
   execv("/bin/unzip",argv);
 ``` 
-
-        Untuk menghapus folder-folder yang tidak dibutuhkan, dilakukan perintah :
+Untuk menghapus folder-folder yang tidak dibutuhkan, dilakukan perintah :
         
 ```c
 // sleep the process for 1 second
@@ -64,8 +63,7 @@ Pada soal 2, diminta untuk membantu pengolahan data dalam suatu file .zip. Adapu
             }
             (void) closedir (isi_petshop);
 ```
-
-        Pada operasi diatas, selain menghapus folder didalam folder petshop, dilakukan katalog nama-nama file yang dimasukkan kedalam array 2D, serta menghitung banyaknya file gambar didalam folder petshop.
+Pada operasi diatas, selain menghapus folder didalam folder petshop, dilakukan katalog nama-nama file yang dimasukkan kedalam array 2D, serta menghitung banyaknya file gambar didalam folder petshop.
 ```c
     char nama_file[200][200]; //menyimpan nama dari setiap file gambar hewan
     int banyak_file_awal=0;
@@ -74,7 +72,7 @@ Pada soal 2, diminta untuk membantu pengolahan data dalam suatu file .zip. Adapu
         
     B.  Mengategorikan foto peliharaan sesuai dengan jenis peliharaan.
     
-        Diminta untuk membuat folder sesuai jenis peliharaan, seperti "cat" akan masuk kedalam "petshop/cat" . Dilakukan perintah sebagai berikut:
+Diminta untuk membuat folder sesuai jenis peliharaan, seperti "cat" akan masuk kedalam "petshop/cat" . Dilakukan perintah sebagai berikut:
     
 ```c
  //Membuat Folder Sesuai Jenis peliharaan
@@ -96,11 +94,11 @@ Pada soal 2, diminta untuk membantu pengolahan data dalam suatu file .zip. Adapu
 
 ```
 
-    Pada perintah diatas, dilakukan tokenizing pada array of char (nama file). Diambil jenis peliharaan untuk tiap file dalam folder petshop.
+Pada perintah diatas, dilakukan tokenizing pada array of char (nama file). Diambil jenis peliharaan untuk tiap file dalam folder petshop.
     
     C.  Memindahkan foto ke folder sesuai dengan jenis peliharaan, dengan memerhatikan nama file.
     
-        foto yang dipindahkan harus diganti namanya dari format [jenis peliharaan];[nama peliharaan];[umur peliharaan dalam tahun], menjadi [nama peliharaan]. Untuk melakukan hal tersebut, dilakukan perintah :
+foto yang dipindahkan harus diganti namanya dari format [jenis peliharaan];[nama peliharaan];[umur peliharaan dalam tahun], menjadi [nama peliharaan]. Untuk melakukan hal tersebut, dilakukan perintah :
 
 ```c
 //Memasukkan file gambar kedalam folder
@@ -141,11 +139,11 @@ Pada soal 2, diminta untuk membantu pengolahan data dalam suatu file .zip. Adapu
 
 ```
 
-    Blok kode diatas digunakan untuk menyalin file gambar berisi 1 peliharaan kedalam folder sesuai dengan jenis peliharaan. Untuk kasus-kasus khusus, akan dibahas di sub-soal bagian D.
+Blok kode diatas digunakan untuk menyalin file gambar berisi 1 peliharaan kedalam folder sesuai dengan jenis peliharaan. Untuk kasus-kasus khusus, akan dibahas di sub-soal bagian D.
     
     D. Dikarenakan dalam satu file foto, bisa terdapat lebih dari 1 peliharaan, maka diminta untuk memindahkan masing-masing peliharaan kedalam folder sesuai jenis.
     
-        Pada bagian ini, diminta untuk mengindentifikasi peliharaan apa saja yang ada dalam 1 foto dan memindahkannya sesuai jenis peliharaan. Berikut blok kode yang digunakan :
+Pada bagian ini, diminta untuk mengindentifikasi peliharaan apa saja yang ada dalam 1 foto dan memindahkannya sesuai jenis peliharaan. Berikut blok kode yang digunakan :
     
 ```c
         //Memasukkan foto dengan lebih dari satu peliharaan kedalam folder
@@ -204,12 +202,11 @@ Pada soal 2, diminta untuk membantu pengolahan data dalam suatu file .zip. Adapu
             }
         }
 ```
-
-    Pada potongan kode tersebut, pertama dilakukan looping untuk memisahkan peliharaan dalam 1 foto. Setelah didapat data peliharaan apa saja yang ada didalamnya, maka bisa disalin kedalam folder.
+Pada potongan kode tersebut, pertama dilakukan looping untuk memisahkan peliharaan dalam 1 foto. Setelah didapat data peliharaan apa saja yang ada didalamnya, maka bisa disalin kedalam folder.
     
     E. Mengisi "keterangan.txt" di setiap folder yang berisi nama dan umur peliharaan.
     
-      Pada sub-soal ini, akan dibedakan menjadi 2 bagian yaitu memasukkan foto dengan 1 peliharaan didalamnya, dan dengan lebih dari 1 peliharaan didalamnya. Untuk kasus 1 peliharaan dalam 1 gambar :
+Pada sub-soal ini, akan dibedakan menjadi 2 bagian yaitu memasukkan foto dengan 1 peliharaan didalamnya, dan dengan lebih dari 1 peliharaan didalamnya. Untuk kasus 1 peliharaan dalam 1 gambar :
     
 ```c
  //Memasukkan data kedalam keterangan.txt setiap folder jenis peliharaan
@@ -255,7 +252,7 @@ Pada soal 2, diminta untuk membantu pengolahan data dalam suatu file .zip. Adapu
 
 ```
 
-    Sedangkan untuk kasus lebih dari satu peliharaan :
+Sedangkan untuk kasus lebih dari satu peliharaan :
     
 ```c
  //Jika dalam gambar ada lebih dari satu peliharaan
@@ -315,7 +312,7 @@ Pada soal 2, diminta untuk membantu pengolahan data dalam suatu file .zip. Adapu
 
 ```
 
-    Perlu di-ingat juga bahwa kita harus menghapus file gambar pada folder utama petshop karena di tiap folder sesuai jenis peliharaan sudah terdapat halo foto peliharaan. Berikut perintahnya :
+Perlu di-ingat juga bahwa kita harus menghapus file gambar pada folder utama petshop karena di tiap folder sesuai jenis peliharaan sudah terdapat halo foto peliharaan. Berikut perintahnya :
     
  ```c
   //Menghapus gambar yang berada diluar folder sesuai jenis peliharaan
