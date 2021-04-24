@@ -15,7 +15,6 @@ int main() {
  pid_t  child1, child2, child3, child4, child5;
  int status;
  char url[300], file[50];
- char cwd[] = "/home/vyra/modul2";
  int hour, min, sec, day, month;
  
  pid = fork();
@@ -68,7 +67,7 @@ int main() {
       sprintf(url, "https://drive.google.com/uc?id=1ZG8nRBRPquhYXq_sISdsVcXx5VdEgi-J&export=download");
       sprintf(file, "modul2/Musik_for_Stevany.zip");
       char *ar[] = {"wget", "--no-check-certificate", url, "-O", file, NULL};
-      execv("/bin/wget", ar);
+      execv("/usr/bin/wget", ar);
      }
      else{
       while((wait(&status)) > 0);
@@ -78,7 +77,7 @@ int main() {
       if(child4 == 0){
        chdir("modul2");
        char *zip[] = {"unzip", "-q", "Musik_for_Stevany.zip", NULL};
-       execv("/bin/unzip", zip);
+       execv("/usr/bin/unzip", zip);
       }
       else{
        while((wait(&status)) > 0);
@@ -86,8 +85,8 @@ int main() {
        child5 = fork();
        if(child5 == 0){
         char *move[] = {"find", "modul2/MUSIK", "-mindepth", "1", 
-		   "-type", "f", "-exec", "/bin/mv", "-t", "modul2/Musyik", "{}", ";", (char *)NULL};
-        execv("/bin/find", move);
+       "-type", "f", "-exec", "/bin/mv", "-t", "modul2/Musyik", "{}", ";", (char *)NULL};
+        execv("/usr/bin/find", move);
        }
        else{
         while((wait(&status)) > 0);
@@ -112,7 +111,7 @@ int main() {
       sprintf(url, "https://drive.google.com/uc?id=1ktjGgDkL0nNpY-vT7rT7O6ZI47Ke9xcp&export=download");
       sprintf(file, "modul2/Film_for_Stevany.zip");
       char *ar[] = {"wget", "--no-check-certificate", url, "-O", file, NULL};
-      execv("/bin/wget", ar);
+      execv("/usr/bin/wget", ar);
      }
      else{
       while((wait(&status)) > 0);
@@ -122,7 +121,7 @@ int main() {
       if(child4 == 0){
        chdir("modul2");
        char *zip[] = {"unzip", "-q", "Film_for_Stevany.zip", NULL};
-       execv("/bin/unzip", zip);
+       execv("/usr/bin/unzip", zip);
       }
       else{
        while((wait(&status)) > 0);
@@ -131,7 +130,7 @@ int main() {
        if(child5 == 0){
         char *move[] = {"find", "modul2/FILM", "-mindepth", "1", 
                 "-type", "f", "-exec", "/bin/mv", "-t", "modul2/Fylm", "{}", ";", (char *)NULL};
-        execv("/bin/find", move);
+        execv("/usr/bin/find", move);
        }
        else{
         while((wait(&status)) > 0);
@@ -156,7 +155,7 @@ int main() {
       sprintf(url, "https://drive.google.com/uc?id=1FsrAzb9B5ixooGUs0dGiBr-rC7TS9wTD&export=download");
       sprintf(file, "modul2/Foto_for_Stevany.zip");
       char *ar[] = {"wget", "--no-check-certificate", url, "-O", file, NULL};
-      execv("/bin/wget", ar);
+      execv("/usr/bin/wget", ar);
      }
      else {
       while((wait(&status)) > 0);
@@ -166,7 +165,7 @@ int main() {
       if(child4 == 0){
        chdir("modul2");
        char *zip[] = {"unzip", "-q", "Foto_for_Stevany.zip", NULL};
-       execv("/bin/unzip", zip);
+       execv("/usr/bin/unzip", zip);
       }
       else{
        while((wait(&status)) > 0);
@@ -175,12 +174,13 @@ int main() {
        if(child5 == 0){
         char *move[] = {"find", "modul2/FOTO", "-mindepth", "1", 
                  "-type", "f", "-exec", "/bin/mv", "-t", "modul2/Pyoto", "{}",  ";", (char *)NULL};
-        execv("/bin/find", move);
+        execv("/usr/bin/find", move);
        }
       }
      }
     }
   }
+
   else if(month==4 && day==9 && hour==22 && min==22 && sec==0){
    
     child2 = fork();
@@ -194,7 +194,7 @@ int main() {
 
      chdir("modul2");
      char *zip[] = {"zip", "-r", "-m", "Lopyu_Stevany.zip", "Musyik", "Fylm", "Pyoto", NULL};
-     execv("/bin/zip", zip);  
+     execv("/usr/bin/zip", zip);  
     }
    }
   sleep(1);
