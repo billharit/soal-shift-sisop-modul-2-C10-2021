@@ -507,7 +507,10 @@ void buatfolder(char nama[])
 <details>
   <summary>Gambar Soal3a</summary>
     
-    ![1619338861305](https://user-images.githubusercontent.com/77628684/115986516-bd298300-a5da-11eb-932c-78753fdedc7a.jpg)
+    
+![1619338861305](https://user-images.githubusercontent.com/77628684/115987079-c2d49800-a5dd-11eb-978f-90a6b474baa6.jpg)
+
+    
     
 </details>
 
