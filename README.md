@@ -146,7 +146,7 @@ child5 = fork();
 ![1d_Foto](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/1d_Foto.png)
 
 
-e. program akan berjalan otomatis pada jam 16.22 wib untuk melakukan pembuatan folder, download file, extract file zip, dan memindahkan file
+e. program akan berjalan otomatis pada tanggal 9 April jam 16.22 wib untuk melakukan pembuatan folder, download file, extract file zip, dan memindahkan file
 
 ```
 while(1){
