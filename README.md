@@ -468,3 +468,174 @@ Dalam pengerjaan nomor 2, terdapat beberapa kendala. Terkadang ada sintaks yang 
 
 ### Soal 3
 > **[soal3.c](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal3/soal3.c)**
+
+**3a. membuat program c interval 40 detik yang membuat direktori dengan format [YYYY-mm-dd_HH:ii:ss] sesuai timestamp**
+```
+  while(1)
+    {
+        char nama[60];
+        buatfolder(nama);
+        
+        downloadgambar(nama);
+        
+        
+        
+        sleep(40);
+    }
+}
+```
+```
+void buatfolder(char nama[])
+{
+    int status1;
+    time_t now;
+    struct tm* timeinfo;
+    time (&now);
+    timeinfo = localtime (&now);
+    // printf("[%d %d %d %d:%d:%d]",timeinfo->tm_mday, timeinfo->tm_mon + 1, timeinfo->tm_year + 1900, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+    strftime(nama,60,"%Y-%m-%d_%H:%M:%S", timeinfo);
+
+    pid_t child_id1;
+    child_id1 = fork();
+    if(child_id1 == 0){
+        char *argv[] = {"mkdir", "-p", nama, NULL};
+        execv("/bin/mkdir", argv);
+    }
+    while(wait(&status1)>0);
+}
+```
+<details>
+  <summary>Gambar Soal3a</summary>
+    
+    ![1619338861305](https://user-images.githubusercontent.com/77628684/115986516-bd298300-a5da-11eb-932c-78753fdedc7a.jpg)
+    
+</details>
+
+**Penjelasan** 
+* pada program utama digunakan sleep(40) untuk menghentikan program dan melanjutkannya setelah 40 detik
+* pada fungsi buatfolder kita akan mengappend salah satu cara mendapatkan timestamp dengan <time.h> kita akan menggunakan strftime untuk mendapatkan string nama folder
+* `char *argv[] = {"mkdir", "-p", nama, NULL};
+        execv("/bin/mkdir", argv);` berfungsi untuk mengeksesuksi mkdir (membuat folder) dengan timestamp sebagai nama
+        
+**3b. mendownload 10 gambar setiap 5 detik dengan nama timestamp dan ukuran (n%1000) + 50 & 3c. meminta membuat status.txt dengan caesar cipher shift 5 lalu menzip direktori beserta isinya dan meremove**
+```
+void downloadgambar(char nama[])
+{
+    pid_t child_id2, child_id3;
+    int status,i;
+    // chdir(nama);
+    child_id2 = fork();
+    FILE *fp;
+    if(child_id2 < 0){
+      exit(EXIT_FAILURE);
+    }  
+    if(child_id2 == 0){
+
+      
+      for(i=1;i<=10;i++){
+        
+      char buffer[50];
+      char namafile[100];
+      time_t now;
+      struct tm* timeinfo;
+      time (&now);
+      timeinfo = localtime (&now);
+      strftime(buffer,100,"%Y-%m-%d_%H:%M:%S", timeinfo);
+      sprintf(namafile,"./%s/%s.jpg",nama, buffer);
+      char link[50];
+      // char folder[100];
+      // sprintf(folder,"/%s", buffer);
+      sprintf(link,"https://picsum.photos/%ld", (now%1000) + 50);
+      // printf("%s\n%s", namafile, folder);
+        child_id3 = fork();
+        if(child_id3 < 0){
+          exit(EXIT_FAILURE);
+          }  
+        if(child_id3 == 0) {
+          char *argv[] = {"wget", "-qO", namafile,link, NULL};
+          // char *argv[] = {"wget", "-qO", namafile,link,"&&", "mv", namafile, folder, NULL};
+          execv("/bin/wget", argv);
+        }
+        sleep(5);
+      }
+    
+    chdir(nama);
+      char statusmsg[30] = "Download Success";
+      // char statusfile;
+      // sprintf(statusfile,"status.txt",nama);
+      // sprintf(statusfile,"./%s/status.txt",nama);
+        caesar(statusmsg);
+        fp = fopen("status.txt", "w");
+        fprintf(fp, statusmsg);
+        fclose(fp);
+    chdir("..");
+    
+    char *zipargv[] = {"zip", "-rm", nama,nama, NULL};
+    execv("/bin/zip", zipargv);
+
+    }
+        
+}
+
+```
+<details>
+  <summary>Gambar 3b dan 3c</summary>
+    
+   ![1619338891775](https://user-images.githubusercontent.com/77628684/115986595-2610fb00-a5db-11eb-8ab6-3b31a0cf96ab.jpg)
+   
+   ![1619339169938](https://user-images.githubusercontent.com/77628684/115986601-2f9a6300-a5db-11eb-8ddd-949eb560e17a.jpg)
+   
+   ![1619338925824](https://user-images.githubusercontent.com/77628684/115986603-32955380-a5db-11eb-9dbc-ee26236f0593.jpg)
+
+    
+</details>
+
+**Penjelasan** 
+* 3b
+* dilakukan iterasi i=0;i<10;i++ untuk mendapatkan 10 foto dan diakhiri sleep(5) untuk menginterval selama 5 detik
+* `sprintf(namafile,"./%s/%s.jpg",nama, buffer);` membuat nama file
+* `sprintf(link,"https://picsum.photos/%ld", (now%1000) + 50);` mendownload file dengan ketentuan
+* `char *argv[] = {"wget", "-qO", namafile,link, NULL};` untuk dilakukan exec menggunakan wget dengan
+* 3c
+* setelah iterasi 3b selesai dilakukan chdir(nama) pada awal line baru untuk memasuki folder
+* declare string status msg isi dengan tulisan "Download Success"
+* masukkan kedalam fungsi caesar dengan shift 5 untuk merubah kata download Success
+* `fp = fopen("status.txt", "w");
+        fprintf(fp, statusmsg);
+        fclose(fp);` untuk membuat file txt dan mengappend kata yang sudah di cipher
+* chdir(..) untuk kembali ke folder utama dan sekarang kita menzip seluruh folder dan isinya
+* `char *zipargv[] = {"zip", "-rm", nama,nama, NULL};` untuk menzip dan remove folder
+
+**3d & 3e. membuat fungsi killer untuk membunuh program, pada 3e diminta untuk diberi comment tambahan**
+
+```
+void Killer()
+{
+ 
+  FILE* kill;
+  kill = fopen("Killer.sh", "w");
+  fprintf(kill, "#!/bin/bash\nif [ \"$1\" = \"-x\" ]\nthen\n\tkill %d\n \trm \"$0\"\nelse\n\tkillall -9 soal3\n\trm \"$0\"\nfi",getpid()); 
+  fclose(kill);
+
+}
+```
+
+<details>
+    <summary>Gambar 3d dan 3e</summary>
+    
+![1619338952144](https://user-images.githubusercontent.com/77628684/115986891-b3a11a80-a5dc-11eb-82ea-fff78d72143e.jpg)
+
+![1619338991445](https://user-images.githubusercontent.com/77628684/115986896-b7cd3800-a5dc-11eb-9bf8-3b6b2742d2db.jpg)
+
+![1619339028996](https://user-images.githubusercontent.com/77628684/115986898-b8fe6500-a5dc-11eb-8c0b-7dae33ad7540.jpg)
+
+</details>
+
+**Penjelasan**
+* `FILE* kill;
+  kill = fopen("Killer.sh", "w");` untuk menbuat script dan mewrite didalamnya
+* `fprintf(kill, "#!/bin/bash\nif [ \"$1\" = \"-x\" ]\nthen\n\tkill %d\n \trm \"$0\"\nelse\n\tkillall -9 soal3\n\trm \"$0\"\nfi",getpid()); ` akan menghasilkan isi text script sama seperti gambar diatas
+* fclose(kill) menutup pengeditan file
+
+
+
