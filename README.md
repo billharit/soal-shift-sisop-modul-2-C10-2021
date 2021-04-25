@@ -12,7 +12,7 @@
 ### Soal 1
 > **[soal1.c](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/soal1.c)**
 
-a. 
+a. membuat folder bernama Musyik, Fylm, dan Pyoto
 
 ```
 child2 = fork();
@@ -37,7 +37,14 @@ if(child2 == 0){
     }
 ```
 
-b. 
+**Penjelasan :**
+Untuk membuat folder baru menggunakan command mkdir
+
+**Gambar :**
+
+![1a](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/1a.png)
+
+b. Download file musik, film, dan foto dan disimpan di folder Musik_for_Stevany.zip untuk musik, Film_for_Stevany.zip untuk film dan Foto_for_Stevany.zip untuk foto 
 
 
 ```
@@ -67,8 +74,13 @@ b.
       execv("/usr/bin/wget", ar);
      }
 ```
+**Penjelasan :** Menggunakan command wget untuk mendownload file dari gdrive
 
-c.
+**Gambar :**
+
+![1b](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/1b.png)
+
+c. meng-extract file yang ada di zip
 
 ```
        chdir("modul2");
@@ -88,7 +100,14 @@ c.
        execv("/usr/bin/unzip", zip);
 ```
 
-d.
+**Penjelasan :** menggunakan command unzip untuk meng-extract file
+
+**Gambar :**
+
+![1c](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/1c.png)
+
+
+d. File yang telah diextract dimasukkan kedalam folder yang telah di bikin di soal (a)
 
 ```
 child5 = fork();
@@ -116,20 +135,69 @@ child5 = fork();
         execv("/usr/bin/find", move);
 ```
 
-e.
+**Penjelasan :** Menggunakan command find untuk mencari file yang ingin dipindah dan menggunakan command mv untuk memindahkan file
+
+**Gambar :**
+
+![1d_Musik](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/1d_Musik.png)
+
+![1d_Film](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/1d_Film.png)
+
+![1d_Foto](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/1d_Foto.png)
+
+
+e. program akan berjalan otomatis pada jam 16.22 wib untuk melakukan pembuatan folder, download file, extract file zip, dan memindahkan file
+
+```
+while(1){
+    int hour, min, sec, day, month;
+ 
+    time_t now = time(NULL);
+    struct tm *local = localtime(&now);
+ 
+    hour = local->tm_hour;         // get hours since midnight (0-23)
+    min = local->tm_min;        // get minutes passed after the hour (0-59)
+    sec = local->tm_sec;        // get seconds passed after a minute (0-59)
+ 
+    day = local->tm_mday;            // get day of month (1 to 31)
+    month = local->tm_mon + 1;       // get month of year (0 to 11)
+    
+    if(day == 9 && month == 4 && hour == 16 && min == 22 && sec == 0){
+        //source code no 1a-1d
+    }
+    else if(day == 9 && month == 4 && hour == 16 && min == 22 && sec == 0){
+        //source code no 1f
+    }
+
+    sleep(30);
+}
+```
+
+**Penjelasan :** 
+
+Agar program terus berjalan dan mengeksekusi secara otomatis digunakan infinite loop. Program akan mengecek waktu menggunakan `if(day == 9 && month == 4 && hour == 16 && min == 22 && sec == 0)` dan `else if(day == 9 && month == 4 && hour == 16 && min == 22 && sec == 0)`
+
+f. pada jam 22.22 wib program akan menghapus file hasil extract dan mengumpulkan folder Musyik, Fylm, Pyoto kedalam satu zip yang bernama Lopyu_Stevany.zip
 
 ```
 char *del[] = {"rm", "-rf", "modul2/MUSIK", "modul2/FOTO", "modul2/FILM", NULL};
      execv("/bin/rm", del);
 ```
 
-f.
-
 ```
  chdir("modul2");
      char *zip[] = {"zip", "-r", "-m", "Lopyu_Stevany.zip", "Musyik", "Fylm", "Pyoto", NULL};
      execv("/usr/bin/zip", zip);  
 ```
+
+**Penjelasan :** file hasil extract akan dihapus menggunakan command `rm -rf` karena ada banyak file didalam folder tersebut. Lalu untuk memindahkan file menjadi satu zip menggunakan command zip
+
+**Gambar :**
+
+![1f](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal1/1f.png)
+
+**Kendala :** Saat menggunakan infinite loop, program mengeksekusi dengan baik tetapi proses download zip tidak selesai. Tetapi saat infinite loop tersebut dihilangkan, program mengeksekusi dengan lancar.
+
 
 ### Soal 2
 > **[soal2.c](https://github.com/billharit/soal-shift-sisop-modul-2-C10-2021/blob/main/soal2/soal2.c)**
